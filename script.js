@@ -41,18 +41,27 @@ function initNavigation() {
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     
+    // Set initial navigation styling immediately
+    if (nav) {
+        nav.style.background = 'rgba(10, 10, 20, 0.95)';
+        nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+    }
+    
     // Scroll-based navigation styling
     const handleScroll = throttle(() => {
         if (window.scrollY > 100) {
-            nav.style.background = 'rgba(255, 255, 255, 0.98)';
-            nav.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+            nav.style.background = 'rgba(10, 10, 20, 0.98)';
+            nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
         } else {
-            nav.style.background = 'rgba(255, 255, 255, 0.95)';
-            nav.style.boxShadow = 'none';
+            nav.style.background = 'rgba(10, 10, 20, 0.95)';
+            nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
         }
     }, 16);
     
     window.addEventListener('scroll', handleScroll);
+    
+    // Initialize navigation styling based on current scroll position
+    handleScroll();
     
     // Mobile menu toggle
     if (navToggle) {
@@ -73,6 +82,17 @@ function initNavigation() {
                     block: 'start'
                 });
             }
+        });
+    });
+    
+    // Logo click handler for home navigation
+    document.querySelectorAll('.logo').forEach(logo => {
+        logo.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     });
 }
